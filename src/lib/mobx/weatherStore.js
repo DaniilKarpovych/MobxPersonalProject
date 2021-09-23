@@ -7,7 +7,7 @@ export class WeatherStore {
     minTemperature = '';
     maxTemperature = '';
     isFiltered = false;
-    selectedDayId = '';
+    selectedDay = '';
 
     constructor() {
         this
@@ -40,6 +40,10 @@ export class WeatherStore {
         this.type = type;
     }
 
+    setSelectedDay(day) {
+        this.selectedDay = day;
+    }
+
     setMinTemperature(temp) {
         this.minTemperature = temp;
     }
@@ -68,9 +72,6 @@ export class WeatherStore {
         return this.type === '' && this.minTemperature === '' && this.maxTemperature === '';
     }
 
-    setSelectedDayId(id) {
-        this.selectedDayId = id;
-    }
 
     resetFilter() {
         this.maxTemperature = '';

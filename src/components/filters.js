@@ -24,10 +24,8 @@ export const Filters = observer(() => {
             maxTemperature: filter.maxTemp,
         });
     });
-    const onClickTypeSet = (event) => {
-        if (!store.isFiltered) {
-            form.setValue('type', event.target.getAttribute('name'));
-        }
+    const onClickTypeSet = store.isFiltered ? null : (event) => {
+        store.setType(event.target.getAttribute('name'));
     };
     const onClickReset = () => {
         store.resetFilter();
@@ -35,19 +33,18 @@ export const Filters = observer(() => {
     };
 
     const checkBox = store.isFiltered ? 'checkbox blocked' : 'checkbox';
-    const dayType = form.getValues('type');
-    const buttonBlock = dayType || form.getValues('minTemp') || form.getValues('maxTemp');
-    console.log(buttonBlock);
+    const buttonBlock = store.type  || form.getValues('minTemp') || form.getValues('maxTemp');
+
 
     return (
         <form
             className = 'filter' onSubmit = { onSubmit }>
             <span
-                className = { `${checkBox} ${dayType === 'cloudy' ? 'selected' : ''}` }
+                className = { `${checkBox} ${store.type === 'cloudy' ? 'selected' : ''}` }
                 onClick = { onClickTypeSet }
                 { ...form.register('cloudy') }>Облачно</span>
             <span
-                className = { `${checkBox} ${dayType === 'sunny' ? 'selected' : ''}` }
+                className = { `${checkBox} ${store.type === 'sunny' ? 'selected' : ''}` }
                 onClick = { onClickTypeSet }
                 { ...form.register('sunny') }>Солнечно</span>
             <p className = 'custom-input'>
